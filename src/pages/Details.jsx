@@ -7,11 +7,11 @@ import { CgMail } from "react-icons/cg";
 import { FaFacebook } from "react-icons/fa";
 
 const Details = () => {
-  const { id } = useParams(); // Get the id from the URL
+  const { id } = useParams();
   const product = products.find((product) => product.id === parseInt(id));
 
   if (!product) {
-    return <div>Product not found</div>; // Handle case when the product is not found
+    return <div>Product not found</div>;
   }
 
   return (

@@ -5,10 +5,9 @@ import products from "../data/data";
 import { IoEyeOutline } from "react-icons/io5";
 
 const Cards = () => {
-  const navigate = useNavigate(); // Hook to programmatically navigate to other routes
+  const navigate = useNavigate();
 
   const handleCardClick = (id) => {
-    // When the card is clicked, navigate to the details page
     navigate(`/product/${id}`);
   };
 
@@ -19,7 +18,17 @@ const Cards = () => {
           <Card
             key={product.id}
             hoverable
-            cover={<img alt={product.product_name} src={product.image} />}
+            cover={
+              <img
+                alt={product.product_name}
+                src={product.image}
+                style={{
+                  height: "150px",  // Fixed height
+                  objectFit: "contain",  // Ensures image covers the area
+                  objectPosition: "center",  // Centers the image
+                }}
+              />
+            }
             onClick={() => handleCardClick(product.id)}
           >
             <Meta
