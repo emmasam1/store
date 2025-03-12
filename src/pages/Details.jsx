@@ -17,8 +17,8 @@ const Details = () => {
   return (
     <div style={{ margin: "auto", width: "95%" }}>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
-        <div>
-          <img src={product.image} alt={product.product_name} className=""/>
+        <div className="100vh">
+          <img src={product.image} alt={product.product_name} className="h-screen"/>
         </div>
         <div className="pt-9">
           <h2 className="text-3xl font-bold uppercase mb-2">
@@ -28,6 +28,20 @@ const Details = () => {
           <p className="mt-3">
             <strong>Price: ${product.price}</strong>
           </p>
+
+          <div className="mt-3 flex gap-2 items-center">
+              <p className="font-semibold text-gray-700">Sizes:</p>
+              <div className="flex flex-wrap gap-2">
+                {product.sizes && product.sizes.map((size, index) => (
+                  <span
+                    key={index}
+                    className="text-sm font-medium px-2 py-1 border-gray-200 cursor-pointer bg-gray-100"
+                  >
+                    {size}
+                  </span>
+                ))}
+              </div>
+            </div>
 
           <div className="flex gap-3 mt-3">
             <MdOutlineWhatsapp
