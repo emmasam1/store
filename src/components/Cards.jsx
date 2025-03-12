@@ -34,7 +34,7 @@ const Cards = () => {
           >
             <Meta
               title={product.product_name}
-              description={`Price: $${product.price}`}
+              description={`Price: ₦${product.price}`}
             />
             <div className="flex items-center gap-2 mt-2">
               <p className="text-gray-500">Views: {product.view}</p>
