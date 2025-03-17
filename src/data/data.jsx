@@ -7,7 +7,7 @@ const products = [
       "High-quality wireless headphones with noise-canceling features.",
     image: "https://www.afro.ng/public/uploads/all/BKqXwdvpdMTfpZpaSNCNr6dGPOBYDvyjN0doEQf6.jpg",
     view: 2,
-    sizes: ["xs", "s", "m", "l", "xl"]  // Size options for clothing
+    sizes: ["XS", "S", "M", "L", "XL"]  // Size options for clothing
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const products = [
     description: "Latest smartphone with a 6.5-inch display and 128GB storage.",
     image: "https://images.fashiontiy.com/products/T103866B6B/color_19.jpg?x-oss-process=image/interlace,1/format,webp",
     view: 10,
-    sizes: ["s", "m", "l", "xl"]  // Size options for clothing
+    sizes: ["S", "M", "L", "XL"]  // Size options for clothing
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const products = [
     description: "Powerful laptop with an Intel i7 processor and 16GB RAM.",
     image: "https://i5.walmartimages.com/asr/faa0aa05-923f-424f-87e1-34dc95f2ecfe.512877e4dd5e3f72f708564dd8b311b9.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
     view: 5,
-    sizes: ["m", "l", "xl"]  // Size options for clothing
+    sizes: ["M", "L", "XL"]  // Size options for clothing
   },
   {
     id: 4,

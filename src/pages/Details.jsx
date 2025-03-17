@@ -1,22 +1,43 @@
 import { useParams } from "react-router";
-import products from "../data/data";
+import axios from "axios";
 import { MdOutlineWhatsapp } from "react-icons/md";
 import { FaInstagram } from "react-icons/fa6";
 import { CgMail } from "react-icons/cg";
 import { FaFacebook } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Details = () => {
-  const { id } = useParams();
-  const product = products.find((product) => product.id === parseInt(id));
-
+  const { id } = useParams(); // Get product ID from the URL
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState(null);
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      const productUrl = `https://store-server-6lv5.onrender.com/api/product/${id}`;
+      try {
+        const response = await axios.get(productUrl);
+        console.log(response);
+        if (response.status === 200) {
+          setProduct(response.data);
+          setLoading(false); // Set loading to false when product is fetched
+        }
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+        setLoading(false);
+      }
+    };
+    fetchProductDetails();
+  }, [id]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading message or spinner
+  }
 
   if (!product) {
     return <div>Product not found</div>;
   }
 
-  // Function to handle WhatsApp click
   const handleWhatsAppClick = () => {
     if (!selectedSize) {
       alert("Please select a size before proceeding.");
@@ -28,7 +49,7 @@ const Details = () => {
       *Size:* ${selectedSize}
       *Price:* ₦${product.price}
       *Description:* ${product.description}
-      *Image Link:* ${product.image}  // You can click this link to view the product image.
+      *Image Link:* ${product.image}
     `;
 
     const encodedMessage = encodeURIComponent(message);
@@ -42,16 +63,16 @@ const Details = () => {
         {/* Image Section */}
         <div className="w-full">
           <img
-            src={product.image}
-            alt={product.product_name}
-            className="w-full object-contain md:h-screen sm:h-auto" // On mobile, it will be auto-height, on medium screens (md) and above, it will be 100vh
+            src={product.imageUrl}
+            alt={product.productName}
+            className="w-full object-contain md:h-screen sm:h-auto"
           />
         </div>
 
         {/* Product Details Section */}
         <div className="pt-9 px-4">
           <h2 className="text-3xl font-bold uppercase mb-2">
-            {product.product_name}
+            {product.productName}
           </h2>
           <p>{product.description}</p>
           <p className="mt-3">
@@ -67,7 +88,7 @@ const Details = () => {
                   <span
                     key={index}
                     onClick={() => setSelectedSize(size)} // Set selected size on click
-                    className={`text-sm font-medium px-4 py-2 border rounded-md cursor-pointer transition duration-200 ${
+                    className={`text-sm font-medium px-4 py-2 border rounded-md cursor-pointer transition duration-200 uppercase ${
                       selectedSize === size
                         ? "bg-blue-500 text-white"
                         : "bg-gray-100 text-gray-700"
@@ -84,7 +105,7 @@ const Details = () => {
             <MdOutlineWhatsapp
               size={25}
               className="transition-transform transform hover:scale-110 hover:text-green-500 cursor-pointer"
-              onClick={handleWhatsAppClick} // Trigger WhatsApp click
+              onClick={handleWhatsAppClick}
             />
             <FaInstagram
               size={25}
