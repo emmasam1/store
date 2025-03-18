@@ -4,7 +4,6 @@ import { Card, Spin } from "antd";
 const { Meta } = Card;
 import { useNavigate } from "react-router";
 import { IoEyeOutline } from "react-icons/io5";
-import { Rings } from "react-loader-spinner";
 
 const contentStyle = {
   padding: 50,
