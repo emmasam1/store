@@ -24,15 +24,11 @@ const Cards = () => {
     const viewProductUrl = `https://store-server-6lv5.onrender.com/api/product/view/${id}`;
     axios
       .get(viewProductUrl)
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.error("Error incrementing product views:", error);
       });
   };
-
-
 
   useEffect(() => {
     const getProduct = async () => {
@@ -43,7 +39,6 @@ const Cards = () => {
           setProducts(response.data);
           setLoading(false);
         }
-        console.log(response);
       } catch (error) {
         console.log("Error fetching products:", error);
         if (error.response) {
