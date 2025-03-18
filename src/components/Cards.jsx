@@ -32,29 +32,27 @@ const Cards = () => {
       });
   };
 
-  const getProduct = async () => {
-    const productsUrl = `https://store-server-6lv5.onrender.com/api/product`;
-    try {
-      const response = await axios.get(productsUrl);
-      if (response.status === 200) {
-        setProducts(response.data);
-        setLoading(false);
-      }
-      console.log(response);
-    } catch (error) {
-      console.log("Error fetching products:", error);
-      if (error.response) {
-        console.log("Server Error:", error.response);
-      } else if (error.request) {
-        console.log("Network Error:", error.request);
-      }
-      setLoading(false);
-    }
-  };
+
 
   useEffect(() => {
-    const getProduct = () => {
-      console.log("Fetching product...");
+    const getProduct = async () => {
+      const productsUrl = `https://store-server-6lv5.onrender.com/api/product`;
+      try {
+        const response = await axios.get(productsUrl);
+        if (response.status === 200) {
+          setProducts(response.data);
+          setLoading(false);
+        }
+        console.log(response);
+      } catch (error) {
+        console.log("Error fetching products:", error);
+        if (error.response) {
+          console.log("Server Error:", error.response);
+        } else if (error.request) {
+          console.log("Network Error:", error.request);
+        }
+        setLoading(false);
+      }
     };
     getProduct();
     const intervalId = setInterval(() => {
