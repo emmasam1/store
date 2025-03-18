@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Card } from "antd";
+import { Card, Spin } from "antd";
 const { Meta } = Card;
 import { useNavigate } from "react-router";
 import { IoEyeOutline } from "react-icons/io5";
 import { Rings } from "react-loader-spinner";
+
+const contentStyle = {
+  padding: 50,
+  // background: 'rgba(0, 0, 0, 1)',
+  borderRadius: 4,
+};
+
+const content = <div style={contentStyle} />;
 
 const Cards = () => {
   const [products, setProducts] = useState([]);
@@ -15,11 +23,14 @@ const Cards = () => {
     navigate(`/product/${id}`);
 
     const viewProductUrl = `https://store-server-6lv5.onrender.com/api/product/view/${id}`;
-    axios.get(viewProductUrl).then((response) => {
-      console.log(response);
-    }).catch((error) => {
-      console.error("Error incrementing product views:", error);
-    });
+    axios
+      .get(viewProductUrl)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("Error incrementing product views:", error);
+      });
   };
 
   const getProduct = async () => {
@@ -30,7 +41,7 @@ const Cards = () => {
         setProducts(response.data);
         setLoading(false);
       }
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.log("Error fetching products:", error);
       if (error.response) {
@@ -44,23 +55,16 @@ const Cards = () => {
 
   useEffect(() => {
     getProduct();
-      
   }, [products]);
 
   return (
     <div style={{ margin: "auto", width: "90%" }}>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4">
-        {loading ? ( 
+        {loading ? (
           <div className="flex justify-center items-center h-80 m-auto absolute w-[90%]">
-            <Rings
-              visible={true}
-              height="80"
-              width="80"
-              color="#000"
-              ariaLabel="rings-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
+            <div className="flex justify-center items-center h-80 m-auto absolute w-[85%]">
+              <Spin tip="Loading">{content}</Spin>
+            </div>
           </div>
         ) : (
           products.map((product) => (
