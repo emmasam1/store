@@ -30,6 +30,7 @@ const Cards = () => {
         setProducts(response.data);
         setLoading(false);
       }
+      console.log(response)
     } catch (error) {
       console.log("Error fetching products:", error);
       if (error.response) {
