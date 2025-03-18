@@ -53,8 +53,15 @@ const Cards = () => {
   };
 
   useEffect(() => {
+    const getProduct = () => {
+      console.log("Fetching product...");
+    };
     getProduct();
-  }, [products]);
+    const intervalId = setInterval(() => {
+      getProduct();
+    }, 20000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div style={{ margin: "auto", width: "90%" }}>
