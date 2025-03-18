@@ -84,10 +84,14 @@ const Cards = () => {
               onClick={() => handleCardClick(product._id)}
               className="w-full"
             >
-              <Meta
-                title={product.productName}
-                description={`Price: ₦${product.price}`}
-              />
+              <Meta title={product.productName} />
+              <div className="flex justify-between items-center mt-2">
+                {`Price: ₦ ${product.price}`}
+                {product.oldPrice !== undefined && product.oldPrice !== 0 ? (
+                  <p className="text-gray-400 line-through">{`₦ ${product.oldPrice}`}</p>
+                ) : null}
+              </div>
+
               <div className="flex items-center gap-2 mt-2">
                 <p className="text-gray-500">Views: {product.views}</p>
                 <IoEyeOutline />
