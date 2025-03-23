@@ -18,24 +18,18 @@ const Cards = () => {
   const [loading, setLoading] = useState(true);
 
   const handleCardClick = (id) => {
-    // Check if the product has already been viewed in this browser session
     if (!localStorage.getItem(`viewed_${id}`)) {
-      // Product has not been viewed yet, so increment the view count on the backend
       const viewProductUrl = `https://store-server-6lv5.onrender.com/api/product/view/${id}`;
       axios
         .get(viewProductUrl)
         .then((response) => {
-          // Optionally, handle successful response here
+   
         })
         .catch((error) => {
           console.error("Error incrementing product views:", error);
         });
-
-      // Mark the product as viewed in the browser's localStorage
       localStorage.setItem(`viewed_${id}`, 'true');
     }
-
-    // Navigate to the product details page
     navigate(`/product/${id}`);
   };
 

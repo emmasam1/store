@@ -45,11 +45,11 @@ const Details = () => {
     }
 
     const message = `
-      *Product Name:* ${product.product_name}
+      *Product Name:* ${product.productName}
       *Size:* ${selectedSize}
       *Price:* ₦${product.price}
       *Description:* ${product.description}
-      *Image Link:* ${product.image}
+      *Image Link:* ${product.imageUrl}
     `;
 
     const encodedMessage = encodeURIComponent(message);
