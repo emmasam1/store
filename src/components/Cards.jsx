@@ -2,10 +2,10 @@ import { Card } from "antd";
 const { Meta } = Card;
 import { useNavigate } from "react-router";
 import { IoEyeOutline } from "react-icons/io5";
+import axios from "axios";
 
 // Cards component now accepts products as a prop
 const Cards = ({ products }) => {
-  console.log(products)
   const navigate = useNavigate();
 
   const handleCardClick = (id) => {
@@ -15,6 +15,7 @@ const Cards = ({ products }) => {
         .get(viewProductUrl)
         .then((response) => {
           // Optionally, you can update the product view count here
+          console.log(response)
         })
         .catch((error) => {
           console.error("Error incrementing product views:", error);
@@ -56,9 +57,9 @@ const Cards = ({ products }) => {
             <Meta title={product.productName} />
             <div className="flex justify-between items-center mt-2">
               {`Price: ₦ ${product.price}`}
-              {product.oldPrice !== undefined && product.oldPrice !== 0 ? (
+              {product.oldPrice ? (
                 <p className="text-gray-400 line-through">{`₦ ${product.oldPrice}`}</p>
-              ) : null}
+              ) : ""}
             </div>
 
             <div className="flex items-center gap-2 mt-2">

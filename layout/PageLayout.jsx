@@ -11,57 +11,46 @@ const { SubMenu } = Menu;
 const PageLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]); // State to store fetched products
-  const [category, setCategory] = useState(''); // State to manage selected category
-  const [selectedKey, setSelectedKey] = useState('all-products'); // Track selected menu item
+  const [products, setProducts] = useState([]); 
+  const [category, setCategory] = useState(''); 
+  const [selectedKey, setSelectedKey] = useState('all-products'); 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  // Handle window resize to close sidebar on smaller screens
   const handleResize = () => {
     if (window.innerWidth <= 1024) {
-      setCollapsed(true); // Close sidebar if window width <= 1024px
+      setCollapsed(true); 
     } else {
-      setCollapsed(false); // Keep sidebar open if window width > 1024px
+      setCollapsed(false); 
     }
   };
 
   useEffect(() => {
-    // Listen for window resizing and update state accordingly
     window.addEventListener('resize', handleResize);
-
-    // Call once to set initial state based on window width
     handleResize();
-
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // Fetch products from the backend based on category
   const fetchProducts = async (category = '') => {
     setLoading(true);
     try {
       const url = category
         ? `https://store-server-6lv5.onrender.com/api/product?category=${category}`
-        : 'https://store-server-6lv5.onrender.com/api/product'; // If no category, get all products
-      console.log('Fetching products from URL:', url); // Log the URL being hit
+        : 'https://store-server-6lv5.onrender.com/api/product';
 
       const response = await axios.get(url);
-      console.log('Response data:', response.data); // Log the response data
-
       if (response.data && response.data.length > 0) {
-        setProducts(response.data); // Set products if data is present
+        setProducts(response.data);
       } else {
         if (category) {
           console.log('No products found for this category.');
-          // Show a message indicating category doesn't exist
           message.error('Category not found, displaying all products.');
-          fetchProducts(); // Fallback to all products if the category is not found
+          fetchProducts();
         } else {
-          setProducts([]); // Clear products if no category and no data
+          setProducts([]); 
         }
       }
     } catch (error) {
@@ -72,23 +61,25 @@ const PageLayout = () => {
     }
   };
 
-  // Handle category selection and trigger fetch
   const handleCategoryChange = (category) => {
-    setCategory(category); // Set the category in state
-    setSelectedKey(category); // Update selected key for menu highlighting
+    setCategory(category); 
+    setSelectedKey(category); 
   };
 
-  // Handle "All Products" selection
   const handleAllProducts = () => {
-    setCategory(''); // Clear category filter to fetch all products
-    setSelectedKey('all-products'); // Update selected key for menu highlighting
-    fetchProducts(); // Fetch all products
+    setCategory('');
+    setSelectedKey('all-products');
+    fetchProducts(); 
+    console.log('Fetching all products...');
   };
 
-  // useEffect to call fetchProducts whenever category changes
   useEffect(() => {
-    fetchProducts(category); // Fetch products when category changes
-  }, [category]); // Runs every time category changes (including when it's an empty string for "All Products")
+    fetchProducts(category);
+  }, [category]); 
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -166,7 +157,7 @@ const PageLayout = () => {
                 <Spin size="large" tip="Loading..." />
               </div>
             ) : (
-              <Cards products={products} /> // Pass the filtered products to Cards component
+              <Cards products={products} /> 
             )}
           </Content>
         </Layout>

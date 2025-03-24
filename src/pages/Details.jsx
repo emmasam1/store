@@ -5,6 +5,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { CgMail } from "react-icons/cg";
 import { FaFacebook } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { Spin } from 'antd';
 
 const Details = () => {
   const { id } = useParams(); // Get product ID from the URL
@@ -17,10 +18,9 @@ const Details = () => {
       const productUrl = `https://store-server-6lv5.onrender.com/api/product/${id}`;
       try {
         const response = await axios.get(productUrl);
-        console.log(response);
         if (response.status === 200) {
           setProduct(response.data);
-          setLoading(false); // Set loading to false when product is fetched
+          setLoading(false); 
         }
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -31,7 +31,16 @@ const Details = () => {
   }, [id]);
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading message or spinner
+    return <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+    }}
+  >
+    <Spin size="large" tip="Loading..." />
+  </div>; // Show a loading message or spinner
   }
 
   if (!product) {
