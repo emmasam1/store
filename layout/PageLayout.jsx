@@ -55,10 +55,14 @@ const PageLayout = () => {
       if (response.data && response.data.length > 0) {
         setProducts(response.data); // Set products if data is present
       } else {
-        console.log('No products found for this category.');
-        // Show a message indicating category doesn't exist
-        message.error('Category not found, displaying all products.');
-        fetchProducts(); // Fallback to all products
+        if (category) {
+          console.log('No products found for this category.');
+          // Show a message indicating category doesn't exist
+          message.error('Category not found, displaying all products.');
+          fetchProducts(); // Fallback to all products if the category is not found
+        } else {
+          setProducts([]); // Clear products if no category and no data
+        }
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -76,8 +80,9 @@ const PageLayout = () => {
 
   // Handle "All Products" selection
   const handleAllProducts = () => {
-    setCategory(''); // Clear category filter
+    setCategory(''); // Clear category filter to fetch all products
     setSelectedKey('all-products'); // Update selected key for menu highlighting
+    fetchProducts(); // Fetch all products
   };
 
   // useEffect to call fetchProducts whenever category changes
